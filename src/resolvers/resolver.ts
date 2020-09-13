@@ -1,7 +1,20 @@
-import { Ctx, Query, Resolver, Subscription } from "type-graphql";
+import {
+  Ctx,
+  Query,
+  Resolver,
+  Subscription,
+  Field,
+  ObjectType,
+} from "type-graphql";
+
+@ObjectType()
+class SubscriptionReturnType {
+  @Field()
+  message?: string;
+}
 
 @Resolver()
-export default class SubscriptionResolver {
+export class SubscriptionResolver {
   @Query(() => String)
   async hello(@Ctx() ctx: any) {
     await ctx.req.pubsub.publish("MESSAGES");

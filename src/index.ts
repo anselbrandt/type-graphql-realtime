@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { ApolloServer, PubSub } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import "reflect-metadata";
-import { Resolvers } from "./src/graphql";
+import { SubscriptionResolver } from "./resolvers/resolver";
 import http from "http";
 
 const PORT = process.env.SERVER_PORT || 4000;
@@ -22,7 +22,7 @@ const main = async () => {
     res.send("hello");
   });
   const schema = await buildSchema({
-    resolvers: Resolvers(),
+    resolvers: [SubscriptionResolver],
     pubSub: pubsub,
   });
   const apolloServer = new ApolloServer({

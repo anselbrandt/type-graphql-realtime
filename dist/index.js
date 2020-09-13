@@ -18,7 +18,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const apollo_server_express_1 = require("apollo-server-express");
 const type_graphql_1 = require("type-graphql");
 require("reflect-metadata");
-const graphql_1 = require("./src/graphql");
+const resolver_1 = require("./resolvers/resolver");
 const http_1 = __importDefault(require("http"));
 const PORT = process.env.SERVER_PORT || 4000;
 dotenv_1.default.config();
@@ -33,7 +33,7 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         res.send("hello");
     });
     const schema = yield type_graphql_1.buildSchema({
-        resolvers: graphql_1.Resolvers(),
+        resolvers: [resolver_1.SubscriptionResolver],
         pubSub: pubsub,
     });
     const apolloServer = new apollo_server_express_1.ApolloServer({

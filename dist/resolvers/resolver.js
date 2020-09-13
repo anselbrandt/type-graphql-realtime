@@ -21,6 +21,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SubscriptionResolver = void 0;
 const type_graphql_1 = require("type-graphql");
 let SubscriptionReturnType = class SubscriptionReturnType {
 };
@@ -52,7 +53,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], SubscriptionResolver.prototype, "hello", null);
 __decorate([
-    type_graphql_1.Subscription(() => SubscriptionReturnType, {
+    type_graphql_1.Subscription(() => String, {
         topics: "MESSAGES",
     }),
     __param(0, type_graphql_1.Ctx()),
@@ -63,5 +64,5 @@ __decorate([
 SubscriptionResolver = __decorate([
     type_graphql_1.Resolver()
 ], SubscriptionResolver);
-exports.default = SubscriptionResolver;
+exports.SubscriptionResolver = SubscriptionResolver;
 //# sourceMappingURL=resolver.js.map
