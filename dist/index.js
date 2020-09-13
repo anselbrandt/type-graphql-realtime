@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_config_1 = __importDefault(require("./src/configs/server.config"));
+const express_1 = __importDefault(require("express"));
 const chalk_1 = __importDefault(require("chalk"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const apollo_server_express_1 = require("apollo-server-express");
@@ -22,8 +22,16 @@ const graphql_1 = require("./src/graphql");
 const http_1 = __importDefault(require("http"));
 const PORT = process.env.SERVER_PORT || 4000;
 dotenv_1.default.config();
-server_config_1.default.getExpress()
-    .then(({ app, pubsub }) => __awaiter(void 0, void 0, void 0, function* () {
+const main = () => __awaiter(void 0, void 0, void 0, function* () {
+    const app = express_1.default();
+    const pubsub = new apollo_server_express_1.PubSub();
+    app.use((req, res, next) => {
+        req.pubsub = pubsub;
+        next();
+    });
+    app.get("/", (_, res) => {
+        res.send("hello");
+    });
     const schema = yield type_graphql_1.buildSchema({
         resolvers: graphql_1.Resolvers(),
         pubSub: pubsub,
@@ -42,9 +50,8 @@ server_config_1.default.getExpress()
     httpServer.listen(Number(PORT), () => {
         console.log(chalk_1.default.green(`Server started at http://localhost:${PORT}/graphql`));
     });
-}))
-    .catch((error) => {
-    console.log(chalk_1.default.red(`Unable to start server on port ${PORT}
-      Error: ${error}`));
+});
+main().catch((error) => {
+    console.error(error);
 });
 //# sourceMappingURL=index.js.map
