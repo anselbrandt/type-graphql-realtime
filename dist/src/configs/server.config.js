@@ -17,21 +17,16 @@ const apollo_server_express_1 = require("apollo-server-express");
 class ServerConfig {
     static getExpress() {
         return __awaiter(this, void 0, void 0, function* () {
-            const appExpress = express_1.default();
+            const app = express_1.default();
             const pubsub = new apollo_server_express_1.PubSub();
-            appExpress.use(express_1.default.json());
-            appExpress.use(express_1.default.urlencoded({ extended: true }));
-            appExpress.use((req, res, next) => {
+            app.use((req, res, next) => {
                 req.pubsub = pubsub;
                 next();
             });
-            appExpress.get("/", (req, res) => {
-                res.json({
-                    error: false,
-                    msg: "No errors",
-                });
+            app.get("/", (_, res) => {
+                res.send("hello");
             });
-            return { appExpress, pubsub };
+            return { app, pubsub };
         });
     }
 }
