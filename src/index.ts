@@ -29,7 +29,11 @@ const main = async () => {
     schema,
     context: (context) => context,
     subscriptions: {
-      onConnect(connectionParams, webSocket) {},
+      onConnect(connectionParams, webSocket) {
+        setInterval(() => {
+          pubsub.publish("MESSAGES", null);
+        }, 1000);
+      },
       onDisconnect() {},
     },
   });

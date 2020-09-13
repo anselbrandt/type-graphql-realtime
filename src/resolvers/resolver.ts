@@ -25,6 +25,8 @@ export class SubscriptionResolver {
     topics: "MESSAGES",
   })
   async subscription(@Ctx() ctx: any): Promise<any> {
-    return "user query";
+    const date = new Date();
+    const time = date.toISOString();
+    return time;
   }
 }

@@ -40,7 +40,11 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         schema,
         context: (context) => context,
         subscriptions: {
-            onConnect(connectionParams, webSocket) { },
+            onConnect(connectionParams, webSocket) {
+                setInterval(() => {
+                    pubsub.publish("MESSAGES", null);
+                }, 1000);
+            },
             onDisconnect() { },
         },
     });

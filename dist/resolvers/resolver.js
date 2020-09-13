@@ -41,7 +41,9 @@ let SubscriptionResolver = class SubscriptionResolver {
     }
     subscription(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
-            return "user query";
+            const date = new Date();
+            const time = date.toISOString();
+            return time;
         });
     }
 };
