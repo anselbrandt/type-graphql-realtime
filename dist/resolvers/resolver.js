@@ -23,15 +23,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubscriptionResolver = void 0;
 const type_graphql_1 = require("type-graphql");
-let SubscriptionReturnType = class SubscriptionReturnType {
-};
-__decorate([
-    type_graphql_1.Field(),
-    __metadata("design:type", String)
-], SubscriptionReturnType.prototype, "message", void 0);
-SubscriptionReturnType = __decorate([
-    type_graphql_1.ObjectType()
-], SubscriptionReturnType);
 let SubscriptionResolver = class SubscriptionResolver {
     hello(ctx) {
         return __awaiter(this, void 0, void 0, function* () {

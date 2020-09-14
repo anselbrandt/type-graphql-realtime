@@ -1,17 +1,4 @@
-import {
-  Ctx,
-  Query,
-  Resolver,
-  Subscription,
-  Field,
-  ObjectType,
-} from "type-graphql";
-
-@ObjectType()
-class SubscriptionReturnType {
-  @Field()
-  message?: string;
-}
+import { Ctx, Query, Resolver, Subscription } from "type-graphql";
 
 @Resolver()
 export class SubscriptionResolver {
