@@ -42,7 +42,10 @@ const main = () => __awaiter(void 0, void 0, void 0, function* () {
         subscriptions: {
             onConnect(connectionParams, webSocket) {
                 setInterval(() => {
-                    pubsub.publish("MESSAGES", null);
+                    pubsub.publish("TIME", null);
+                }, 1000);
+                setInterval(() => {
+                    pubsub.publish("RANDOM", null);
                 }, 1000);
             },
             onDisconnect() { },

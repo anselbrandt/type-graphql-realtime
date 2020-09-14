@@ -17,16 +17,28 @@ class SubscriptionReturnType {
 export class SubscriptionResolver {
   @Query(() => String)
   async hello(@Ctx() ctx: any) {
-    await ctx.req.pubsub.publish("MESSAGES");
+    await ctx.req.pubsub.publish("QUERY");
     return "Hello World";
   }
 
   @Subscription(() => String, {
-    topics: "MESSAGES",
+    topics: "TIME",
   })
-  async subscription(@Ctx() ctx: any): Promise<any> {
+  async time(@Ctx() ctx: any): Promise<any> {
     const date = new Date();
     const time = date.toISOString();
     return time;
+  }
+  @Subscription(() => String, {
+    topics: "RANDOM",
+  })
+  async random(@Ctx() ctx: any): Promise<any> {
+    return Math.random();
+  }
+  @Subscription(() => String, {
+    topics: "QUERY",
+  })
+  async query(@Ctx() ctx: any): Promise<any> {
+    return "user query";
   }
 }

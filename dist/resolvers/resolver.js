@@ -35,15 +35,25 @@ SubscriptionReturnType = __decorate([
 let SubscriptionResolver = class SubscriptionResolver {
     hello(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield ctx.req.pubsub.publish("MESSAGES");
+            yield ctx.req.pubsub.publish("QUERY");
             return "Hello World";
         });
     }
-    subscription(ctx) {
+    time(ctx) {
         return __awaiter(this, void 0, void 0, function* () {
             const date = new Date();
             const time = date.toISOString();
             return time;
+        });
+    }
+    random(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return Math.random();
+        });
+    }
+    query(ctx) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return "user query";
         });
     }
 };
@@ -56,13 +66,31 @@ __decorate([
 ], SubscriptionResolver.prototype, "hello", null);
 __decorate([
     type_graphql_1.Subscription(() => String, {
-        topics: "MESSAGES",
+        topics: "TIME",
     }),
     __param(0, type_graphql_1.Ctx()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], SubscriptionResolver.prototype, "subscription", null);
+], SubscriptionResolver.prototype, "time", null);
+__decorate([
+    type_graphql_1.Subscription(() => String, {
+        topics: "RANDOM",
+    }),
+    __param(0, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SubscriptionResolver.prototype, "random", null);
+__decorate([
+    type_graphql_1.Subscription(() => String, {
+        topics: "QUERY",
+    }),
+    __param(0, type_graphql_1.Ctx()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], SubscriptionResolver.prototype, "query", null);
 SubscriptionResolver = __decorate([
     type_graphql_1.Resolver()
 ], SubscriptionResolver);
