@@ -20,11 +20,16 @@ const type_graphql_1 = require("type-graphql");
 require("reflect-metadata");
 const resolver_1 = require("./resolvers/resolver");
 const http_1 = __importDefault(require("http"));
+const graphql_redis_subscriptions_1 = require("graphql-redis-subscriptions");
+const ioredis_1 = __importDefault(require("ioredis"));
 const PORT = process.env.SERVER_PORT || 4000;
 dotenv_1.default.config();
 const main = () => __awaiter(void 0, void 0, void 0, function* () {
     const app = express_1.default();
-    const pubsub = new apollo_server_express_1.PubSub();
+    const pubsub = new graphql_redis_subscriptions_1.RedisPubSub({
+        publisher: new ioredis_1.default(),
+        subscriber: new ioredis_1.default(),
+    });
     app.use((req, res, next) => {
         req.pubsub = pubsub;
         next();

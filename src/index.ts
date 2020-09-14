@@ -1,19 +1,29 @@
 import express from "express";
 import chalk from "chalk";
 import dotenv from "dotenv";
-import { ApolloServer, PubSub } from "apollo-server-express";
+import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import "reflect-metadata";
 import { SubscriptionResolver } from "./resolvers/resolver";
 import http from "http";
+import { RedisPubSub } from "graphql-redis-subscriptions";
+import Redis from "ioredis";
 
 const PORT = process.env.SERVER_PORT || 4000;
 
 dotenv.config();
 
 const main = async () => {
+  // const options: Redis.RedisOptions = {
+  //   host: REDIS_HOST,
+  //   port: REDIS_PORT,
+  //   retryStrategy: times => Math.max(times * 100, 3000),
+  // };
   const app = express();
-  const pubsub = new PubSub();
+  const pubsub = new RedisPubSub({
+    publisher: new Redis(),
+    subscriber: new Redis(),
+  });
   app.use((req: any, res: any, next: any) => {
     req.pubsub = pubsub;
     next();
