@@ -8,22 +8,40 @@ const query = gql`
   }
 `;
 
-const subscription = gql`
+const timeSubscription = gql`
   subscription {
     time
   }
 `;
 
+const randomSubscription = gql`
+  subscription {
+    random
+  }
+`;
+
 function App() {
-  const { loading: qloading, error: qerror, data: qdata } = useQuery(query);
-  const { loading: sloading, error: serror, data: sdata } = useSubscription(
-    subscription
-  );
+  const {
+    loading: helloLoading,
+    error: helloError,
+    data: helloData,
+  } = useQuery(query);
+  const {
+    loading: timeLoading,
+    error: timeError,
+    data: timeData,
+  } = useSubscription(timeSubscription);
+  const {
+    loading: randomLoading,
+    error: randomError,
+    data: randomData,
+  } = useSubscription(randomSubscription);
 
   return (
     <div className="App">
-      <div>{qdata ? qdata.hello : null}</div>
-      <div>{sdata ? sdata.time : null}</div>
+      <div>{helloData ? helloData.hello : null}</div>
+      <div>{timeData ? timeData.time : null}</div>
+      <div>{randomData ? randomData.random : null}</div>
     </div>
   );
 }
