@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, useSubscription, gql } from "@apollo/client";
 
 const query = gql`
   {
@@ -8,14 +8,24 @@ const query = gql`
   }
 `;
 
+const subscription = gql`
+  subscription {
+    time
+  }
+`;
+
 function App() {
-  const { loading, error, data } = useQuery(query);
+  const { loading: qloading, error: qerror, data: qdata } = useQuery(query);
+  const { loading: sloading, error: serror, data: sdata } = useSubscription(
+    subscription
+  );
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  console.log(data.hello);
-
-  return <div className="App">{data ? data.hello : null}</div>;
+  return (
+    <div className="App">
+      <div>{qdata ? qdata.hello : null}</div>
+      <div>{sdata ? sdata.time : null}</div>
+    </div>
+  );
 }
 
 export default App;
